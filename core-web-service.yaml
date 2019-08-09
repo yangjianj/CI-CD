@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":["134.175.212.88"],"port":8000,"protocol":"TCP","serviceName":"coreprotest1:corepro-web","allNodes":false}]'
+    service.kubernetes.io/qcloud-loadbalancer-clusterid: cls-0ccdb4l0
+  creationTimestamp: null
+  labels:
+    qcloud-app: corepro-web
+  name: corepro-web
+  namespace: coreprotest1
+spec:
+  ports:
+  - name: tcp-8000-8000
+    nodePort: 30202
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    qcloud-app: corepro-web
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}
