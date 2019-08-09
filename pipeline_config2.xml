@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow-definition plugin="workflow-job@2.28">
+    <actions/>
+    <description/>
+    <keepDependencies>false</keepDependencies>
+    <properties>
+        <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+                <hudson.model.StringParameterDefinition>
+                    <name>script_path</name>
+                    <description>代码路径</description>
+                    <defaultValue>jimmyya/</defaultValue>
+                    <trim>false</trim>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>tag</name>
+                    <description>代码tag</description>
+                    <defaultValue>CS_web_v1.5.6_TCE_M_v1.6.0_20190627</defaultValue>
+                    <trim>false</trim>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>build_image_name</name>
+                    <description>生成镜像名</description>
+                    <defaultValue>test</defaultValue>
+                    <trim>false</trim>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>build_image_tag</name>
+                    <description>生成镜像tag</description>
+                    <defaultValue>V1.6.0201907033</defaultValue>
+                    <trim>false</trim>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>service</name>
+                    <description></description>
+                    <defaultValue>FII_T_BEACON_COREPRO_WEB</defaultValue>
+                    <trim>false</trim>
+                </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+        </hudson.model.ParametersDefinitionProperty>
+    </properties>
+    <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.60">
+        <script>pipeline {
+            agent {label &apos;master&apos;}
+            environment {
+            haebor = &apos;10.134.171.175&apos;
+            user=&apos;sqa&apos;
+            password=&apos;Foxconn168!!&apos;
+            project=&apos;devops&apos;
+            }
+            stages {
+            stage(&apos;Get Code&apos;) {
+            steps {
+            echo &apos;Checking Out..&apos;
+            echo &quot;CC&quot;
+            sh &apos;&apos;&apos;
+            pwd;
+            ls;
+            rm -rf *;
+            ls;
+            ps -ef | grep java;
+            ps -ef | grep &quot;${CC}&quot;;
+            &apos;&apos;&apos;
+            }
+            }
+            stage(&apos;git&apos;) {
+            steps {
+            echo &apos;Building..&apos;
+            sh &quot;&quot;&quot;
+            pwd;
+            ls;
+            git clone git@10.167.6.154:&quot;${script_path}${service}&quot;.git;
+            cd ${service};
+            git tag;
+            git checkout &quot;${tag}&quot;;
+            git tag;
+            &quot;&quot;&quot;
+            }
+            }
+            stage(&apos;docker&apos;) {
+            steps {
+            sh&quot;&quot;&quot;
+            cd ${service};
+            pwd;
+            ls;
+            docker login -u ${user} -p ${password} ${haebor} ;
+            docker build -t ${haebor}/${project}/${build_image_name}:${build_image_tag} .;
+            docker images | grep ${build_image_name};
+            docker push ${haebor}/${project}/${build_image_name}:${build_image_tag};
+            &quot;&quot;&quot;
+            }
+            }
+            stage(&apos;Deploy&apos;) {
+            steps {
+            echo &apos;Deploying....&apos;
+            }
+            }
+            }
+            }
+        </script>
+        <sandbox>true</sandbox>
+    </definition>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers/>
+    <concurrentBuild>false</concurrentBuild>
+    <builders/>
+    <publishers/>
+    <buildWrappers/>
+</flow-definition>

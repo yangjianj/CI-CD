@@ -1,0 +1,75 @@
+pipeline {
+            agent {label 'slave-10.129.4.84'}
+            environment {
+            haebor = '10.134.171.175'
+            user='sqa'
+            }
+            stages {
+            stage('Get Code') {
+            steps {
+            sh '''
+            pwd;
+            ls;
+            rm -rf *;
+            ls;
+            ps -ef | grep java;
+            '''
+            }
+            }
+            stage('docker pull and push') {
+            steps {
+            echo 'Building..'
+            sh """
+            pwd;
+            ls;
+            echo docker pull ${src_image};
+            echo docker tag  ${src_image}  ${dst_image}:${dst_tag};
+            echo docker push ${dst_image}:${dst_tag};
+            """
+            }
+            }
+            stage('kubectl') {
+            steps {
+            sh"""
+            pwd;
+            ls;
+            """
+            withKubeConfig(caCertificate: '''-----BEGIN CERTIFICATE-----
+MIIDNjCCAh6gAwIBAgIIEriPadCa0xQwDQYJKoZIhvcNAQELBQAwOTELMAkGA1UE
+BhMCQ04xEzARBgNVBAoTCnRlbmNlbnR5dW4xFTATBgNVBAMTDGNscy0wY2NkYjRs
+MDAeFw0xODEwMDQxNjA1NTZaFw0zODEwMDQxNjA1NTZaMDkxCzAJBgNVBAYTAkNO
+MRMwEQYDVQQKEwp0ZW5jZW50eXVuMRUwEwYDVQQDEwxjbHMtMGNjZGI0bDAwggEi
+MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDCVHu0zMQBYfdcbTZcq9tXhBQu
+vMAlqhr3te20IuJe+xYRv8yxjPHDTpHFueyp6j4qZLGJ1nNpHryT8ZWHkRBBYtKz
+/DqmNEG6lhh71sHJSZHmaMHNEZ57EAq4ABKpdc06L8xxf91pjzXaue0NcD1cs5Ih
+vHW921qzASK77X5tleICFBbZ73ItARXLE53T6IZkaqD3AGNdmdZgpge8mklqT2Fm
+X6Ab3kQHcFXOrAB5QqrWi6Fs2IkEmGN5/I0+pRJ18gGRJe8PTZZ98RfXFC6PoW8R
+k12PGcnpnV/N95HbnlOQyrxQCSsz+YWvq42hFAG106twr4eF/Wptu2rMrrzHAgMB
+AAGjQjBAMA4GA1UdDwEB/wQEAwIChDAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYB
+BQUHAwEwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEATGb4WhIn
+AwPNQMLTQNdy93SLABB7DdEuNqzM0XBckkvOzo5PVPq22vOcPXW6iNnCaUqRZiUZ
+qOJYgjekAoOpyxWhI9S9Km3dng8GVmxHJVZJDeEzmWXiZY/gbfGgUc/hVLV5yScu
+rw0ZM2bstjZW4bnBaLAFbUH3ZDFGb72yZhK9ez68iDpggD+1nLsBoUaaYLQwAqmn
+l+Kr0Clmi0DeUNls6Qhe0U5kjUhUTeHHw2Wu+jw7yymasnqt/di0SsjqHfwVtSlc
+PHCMkSLMkcpwHaA0MzFFfz4dzYbns4I2IQiOMAoxPZasrSEjS6qG69pTn1H1ZpL8
+0KU6ArMq+Ebb8A==
+-----END CERTIFICATE-----''', contextName: '', credentialsId: 'tke_test_token', serverUrl: 'https://cls-0ccdb4l0.ccs.tencent-cloud.com') {
+      sh """
+      kubectl get pods;
+      kubectl cluster-info;
+      kubectl get deployments -n coreprotest1;
+      kubectl rollout history deployment/corepro-web -n coreprotest1;
+      echo kubectl rollout undo deployment/corepro-web --to-revision=1 -n coreprotest1;
+      kubectl rollout status deployment/corepro-web -n coreprotest1;
+      echo kubectl set image deployment/corepro-web  corepro-web=ccr.ccs.tencentyun.com/sqacorepro/beacon-corepro-web:v1.5.920190514 -n coreprotest1;
+      """
+    }
+            }
+            }
+            stage('Deploy') {
+            steps {
+            echo 'Deploying....'
+            }
+            }
+            }
+            }

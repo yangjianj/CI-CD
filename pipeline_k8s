@@ -1,0 +1,57 @@
+pipeline {
+            agent {label 'master'}
+            environment {
+            e1 = '10.134.171.175'
+            e2 ='sqa'
+            }
+            stages {
+            stage('Get Code') {
+            steps {
+            echo 'Checking Out..'
+            echo "CC"
+            sh '''
+            pwd;
+            ls;
+            rm -rf *;
+            ls;
+            ps -ef | grep java;
+            ps -ef | grep "${CC}";
+            '''
+            }
+            }
+            stage('git') {
+            steps {
+            echo 'Building..'
+            git(
+                    branch: "master",
+                    credentialsId: "${git_credentialsid}",
+                    url : "git@${script_path}${service}.git"
+                    )
+            sh """
+            pwd;
+            ls;
+            git tag;
+            git checkout ${tag};
+            ls;
+            """
+            }
+            }
+            stage('docker') {
+            steps {
+            sh"""
+            pwd;
+            ls;
+            docker login -u ${docker_user} -p ${docker_password} ${haebor} ;
+            docker build -t ${haebor}/${docker_project}/${build_image_name}:${build_image_tag} .;
+            docker images | grep ${build_image_name};
+            docker push ${haebor}/${docker_project}/${build_image_name}:${build_image_tag};
+            """
+            }
+            }
+            stage('Deploy') {
+            steps {
+            echo 'Deploying....'
+            }
+            }
+            }
+            }

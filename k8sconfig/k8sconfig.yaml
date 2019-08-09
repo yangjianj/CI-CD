@@ -1,0 +1,510 @@
+  _param.py: |
+    # -*- coding: utf-8 -*-
+
+    __author__ = '830201'
+    __version__ = '1.0'
+    """
+     * Created by 830201 on 2019/5/6.
+     * File Name _params
+     * Version 1.0
+     * History:
+
+    系统参数字典
+
+    """
+    # 定义当前使用环境
+    __ENV = ("FIXO", "DEV","SQA","PRODUCT","TCE")
+
+    ENVFLAG = __ENV[2]
+
+    # *****************************************************************
+    # 字典配置
+    # *****************************************************************
+
+    # mysql 数据库参数
+    PARAMS = {
+        # DEV 环境配置
+        "DEV": {
+            "MYSQL": {
+                "host": "172.16.16.134",
+                "port": 3306,
+                "user": "beacon",
+                "password": "Foxconn88!",
+                "db": "db_fii_boss"
+            },
+            "REDIS": {
+                "host": "172.16.16.56",
+                "port": 6379,
+                "db": 0,
+                "password": "foxconn168!"
+            },
+            "MONGODB": {
+                "host": "172.16.16.111",
+                "port": 27017,
+                "user": "mongouser",
+                "password": "mongo%40Foxconn"
+            },
+            "RABBITMQ": {
+                "host": "111.230.118.86",
+                "port": 5672,
+                "user": "root",
+                "password": "foxocnn168"
+            },
+            "ACTIVEMQ_HA": {
+                "host": "172.31.32.40",
+                "port": 1883,
+            },
+            "ACTIVEMQ": {
+                "host": "amqbroker",
+                "port": 1883,
+                "user": "corepro",
+                "password": "corepro168!",
+                "host_A": "amqbroker1",
+                "port_A": 1883,
+                "host_B": "amqbroker2",
+                "port_B": 1883,
+                "host_C": "amqbroker3",
+                "port_C": 1883,
+            },
+            # API Gateway Info
+            "API_GATEWAYS": {
+                "host": "http://service-o8bikfta-1256676747.ap-guangzhou.apigateway.myqcloud.com/release/",
+                "name_space": "default-code",
+                "service_name": "beacon-corepro-equipment-new"
+            },
+            # Email Service
+            "EMAIL_SERVICE": {
+                "support": True,
+                "host": "smtp.exmail.qq.com",
+                "username": "fiiadmin@fiibeacon.com",
+                "password": "Foxconn888",
+            },
+            # SMS Service
+            "SMS_SERVICE": {
+                "support": False,
+                "host": "smtp.exmail.qq.com",
+                "appid": "1400118837",
+                "appkey": "f3269bea3e18cf97b6bdd43a266956f6",
+                "tempid": 175736,
+                "sign": "深圳富桂精密工業有限公司",
+            },
+            # DBS URL
+            "DBS_URLS": {
+                "host": "http://172.31.32.26:8000/",
+                "gateway_path":"http://service-o8bikfta-1256676747.ap-guangzhou.apigateway.myqcloud.com/test/",
+                "create_table_path":"insert/createTable",
+                "create_project_path": "http://10.134.236.20/corepro/createproject",
+                "appid":"MNXXEZLQOJXV64TPN52A====",
+                "name_space": "default-code",
+                "service_name": "beacon-dbs-dbswebservice"
+            },
+            # SYS API URL
+            "COREPRO_SYS_API": "http://172.16.16.38:8080",  # corepro 系统公共API
+
+            # Flag for debug message
+            "COREPRO_DEBUG" : True,
+            "SQL_DEBUG" : True,
+            "MQTT_DEBUG" : True,
+
+            # Kafka create params
+            "CREATE_KAFKA_URL": "http://beacon-kafka-services-v2:8080/kafkaService/kylinKafkatopic/",
+            "SKIP_KAFKA_TOPIC": False,
+
+            # Product iamge URL
+            "PRODUCT_IMAGE_URL": "http://service-o8bikfta-1256676747.ap-guangzhou.apigateway.myqcloud.com/release/corepro/equipment/product/image/" + \
+                                 "?X-NameSpace-Code=default-code&X-MicroService-Name=beacon-corepro-equipment-new&user_id=%s&product_id=%s",
+            # TIME ZONE
+            "TIME_ZONE": 8,  # +8 Asis/Shanhai
+            # Other params
+            "BATCH_REGISTER_LIMIT": 1000,
+            "BATCH_REGISTER_EXCEL_LIMIT": 2 * 100 * 1000
+        },
+
+        # FIXO 云环境配置
+        "FIXO": {
+            "MYSQL": {
+                "host": "10.134.171.50",
+                "port": 3306,
+                "user": "corepro",
+                "password": "corepro168!",
+                "db": "db_corepro_sys"
+            },
+            "REDIS": {
+                "host": "10.134.171.38",
+                "port": 6379,
+                "db": 0,
+                "password": "corepro168!"
+            },
+            "MONGODB": {
+                "host": "10.134.171.38",
+                "port": 27017,
+                "user": "corepro",
+                "password": "corepro168!"
+            },
+            "RABBITMQ": {
+                "host": "10.134.171.28",
+                "port": 5672,
+                "user": "corepro",
+                "password": "corepro168!"
+            },
+            "ACTIVEMQ_HA": {
+                "host": "10.134.171.28",
+                "port": 11883,
+            },
+            "ACTIVEMQ": {
+                "host": "10.134.171.90",
+                "port": 1883,
+                "user": "corePro",
+                "password": "foxconn168!",
+                "host_A": "10.134.171.28",
+                "port_A": 11883,
+                "host_B": "10.134.171.28",
+                "port_B": 11884,
+                "host_C": "10.134.171.28",
+                "port_C": 11885,
+            },
+            # API Gateway Info
+            "API_GATEWAYS": {
+                "host": "http://10.134.171.28",
+                "name_space": "default-code",
+                "service_name": "beacon-corepro-equipment-new"
+            },
+            # Email Service
+            "EMAIL_SERVICE": {
+                "support": False,
+                "host": "smtp.exmail.qq.com",
+                "username": "fiiadmin@fiibeacon.com",
+                "password": "Foxconn888",
+            },
+            # SMS Service
+            "SMS_SERVICE": {
+                "support": False,
+                "host": "smtp.exmail.qq.com",
+                "appid": "1400118837",
+                "appkey": "f3269bea3e18cf97b6bdd43a266956f6",
+                "tempid": 175736,
+                "sign": "深圳富桂精密工業有限公司",
+            },
+            # DBS URL
+            "DBS_URLS": {
+                "host": "http://172.31.32.26:8000/",
+                "gateway_path":"http://service-o8bikfta-1256676747.ap-guangzhou.apigateway.myqcloud.com/test/",
+                "create_table_path":"insert/createTable",
+                "create_project_path": "http://10.134.236.20/corepro/createproject",
+                "appid":"MNXXEZLQOJXV64TPN52A====",
+                "name_space": "default-code",
+                "service_name": "beacon-dbs-dbswebservice"
+            },
+            # SYS API URL
+            "COREPRO_SYS_API": "http://10.134.171.28:8001",  # corepro 系统公共API
+
+            # Flag for debug message
+            "COREPRO_DEBUG" : True,
+            "SQL_DEBUG" : True,
+            "MQTT_DEBUG" : True,
+
+            # Kafka create params
+            "CREATE_KAFKA_URL": "http://10.134.171.28:8004/kafkaService/kylinKafkatopic/",
+            "SKIP_KAFKA_TOPIC": True,
+
+            # Product iamge URL
+            "PRODUCT_IMAGE_URL": "http://10.134.171.28:8002/corepro/equipment/product/image/" + \
+                            "?X-NameSpace-Code=coreprosqa&X-MicroService-Name=beacon-corepro-equipment-sqa&user_id=%s&product_id=%s",
+            # TIME ZONE
+            "TIME_ZONE": 8,  # +8 Asis/Shanhai
+            # Other params
+            "BATCH_REGISTER_LIMIT": 1000,
+            "BATCH_REGISTER_EXCEL_LIMIT": 2 * 100 * 1000
+        },
+
+        # SQA 环境配置
+        "SQA": {
+            "MYSQL": {
+                "host": "172.31.64.14",
+                "port": 3306,
+                "user": "corepro01",
+                "password": "foxconn168!",
+                "db": "devops_corepro_sys"
+            },
+            "REDIS": {
+                "host": "172.31.64.4",
+                "port": 6379,
+                "db": 2,
+                "password": "Foxconn0"
+            },
+            "MONGODB": {
+                "host": "172.31.64.10",
+                "port": 27017,
+                "user": "mongouser",
+                "password": "Foxconn0"
+            },
+            "RABBITMQ": {
+                "host": "172.31.64.8",
+                "port": 5672,
+                "user": "root",
+                "password": "foxconn168!"
+            },
+            "ACTIVEMQ_HA": {
+                "host": "172.31.32.40",
+                "port": 1883,
+            },
+            "ACTIVEMQ": {
+                "host": "amqbroker.corepro",
+                "port": 1883,
+                "user": "corepro",
+                "password": "corepro168!",
+                "host_A": "amqbroker1.corepro",
+                "port_A": 1883,
+                "host_B": "amqbroker2.corepro",
+                "port_B": 1883,
+                "host_C": "amqbroker3.corepro",
+                "port_C": 1883,
+            },
+            # API Gateway Info
+            "API_GATEWAYS": {
+                "host": "http://service-jzno08js-1256676747.ap-guangzhou.apigateway.myqcloud.com/test/",
+                "name_space": "coreprosqa",
+                "service_name": "beacon-corepro-equipment-sqa"
+            },
+            # Email Service
+            "EMAIL_SERVICE": {
+                "support": True,
+                "host": "smtp.exmail.qq.com",
+                "username": "fiiadmin@fiibeacon.com",
+                "password": "Foxconn888",
+            },
+            # SMS Service
+            "SMS_SERVICE": {
+                "support": False,
+                "host": "smtp.exmail.qq.com",
+                "appid": "1400118837",
+                "appkey": "f3269bea3e18cf97b6bdd43a266956f6",
+                "tempid": 175736,
+                "sign": "深圳富桂精密工業有限公司",
+            },
+            # DBS URL
+            "DBS_URLS": {
+                "host": "http://172.31.32.26:8000/",
+                "gateway_path":"http://service-o8bikfta-1256676747.ap-guangzhou.apigateway.myqcloud.com/test/",
+                "create_table_path":"insert/createTable",
+                "create_project_path": "http://10.134.236.20/corepro/createproject",
+                "appid":"MNXXEZLQOJXV64TPN52A====",
+                "name_space": "default-code",
+                "service_name": "beacon-dbs-dbswebservice"
+            },
+            # SYS API URL
+            "COREPRO_SYS_API": "http://172.31.16.4:8080",  # corepro 系统公共API
+
+            # Flag for debug message
+            "COREPRO_DEBUG" : False,
+            "SQL_DEBUG" : False,
+            "MQTT_DEBUG" : True,
+
+            # Kafka create params
+            "CREATE_KAFKA_URL": "http://sqa-beacon-kafka-services-v2:8080/kafkaService/kylinKafkatopic/",
+            "SKIP_KAFKA_TOPIC": True,
+
+            # Product iamge URL
+            "PRODUCT_IMAGE_URL": "http://service-jzno08js-1256676747.ap-guangzhou.apigateway.myqcloud.com/test/corepro/equipment/product/image/" + \
+                                 "?X-NameSpace-Code=coreprosqa&X-MicroService-Name=beacon-corepro-equipment-sqa&user_id=%s&product_id=%s",
+            # TIME ZONE
+            "TIME_ZONE": 8,  # +8 Asis/Shanhai
+            # Other params
+            "BATCH_REGISTER_LIMIT": 1000,
+            "BATCH_REGISTER_EXCEL_LIMIT": 2 * 100 * 1000
+        },
+
+        # Production 环境配置
+        "PRODUCT": {
+            "MYSQL": {
+                "host": "172.16.16.134",
+                "port": 3306,
+                "user": "beacon",
+                "password": "Foxconn88!",
+                "db": "db_fii_boss"
+            },
+            "REDIS": {
+                "host": "172.16.16.56",
+                "port": 6379,
+                "db": 0,
+                "password": "foxconn168!"
+            },
+            "MONGODB": {
+                "host": "172.16.16.111",
+                "port": 27017,
+                "user": "mongouser",
+                "password": "mongo%40Foxconn"
+            },
+            "RABBITMQ": {
+                "host": "193.112.236.126",
+                "port": 5672,
+                "user": "root",
+                "password": "foxconn168"
+            },
+            "ACTIVEMQ_HA": {
+                "host": "193.112.225.54",
+                "port": 1883,
+            },
+            "ACTIVEMQ": {
+                "host": "amqbroker.corepro",
+                "port": 1883,
+                "user": "corepro",
+                "password": "corepro168!",
+                "host_A": "amqbroker1.corepro",
+                "port_A": 1883,
+                "host_B": "amqbroker2.corepro",
+                "port_B": 1883,
+                "host_C": "amqbroker3.corepro",
+                "port_C": 1883,
+            },
+            # API Gateway Info
+            "API_GATEWAYS": {
+                "host": "http://service-o8bikfta-1256676747.ap-guangzhou.apigateway.myqcloud.com/release/",
+                "name_space": "default-code",
+                "service_name": "beacon-corepro-equipment-new"
+            },
+            # Email Service
+            "EMAIL_SERVICE": {
+                "support": False,
+                "host": "smtp.exmail.qq.com",
+                "username": "fiiadmin@fiibeacon.com",
+                "password": "Foxconn888",
+            },
+            # SMS Service
+            "SMS_SERVICE": {
+                "support": False,
+                "host": "smtp.exmail.qq.com",
+                "appid": "1400118837",
+                "appkey": "f3269bea3e18cf97b6bdd43a266956f6",
+                "tempid": 175736,
+                "sign": "深圳富桂精密工業有限公司",
+            },
+            # DBS URL
+            "DBS_URLS": {
+                "host": "http://172.31.32.26:8000/",
+                "gateway_path": "http://service-o8bikfta-1256676747.ap-guangzhou.apigateway.myqcloud.com/test/",
+                "create_table_path": "insert/createTable",
+                "create_project_path": "http://10.134.236.20/corepro/createproject",
+                "appid": "MNXXEZLQOJXV64TPN52A====",
+                "name_space": "default-code",
+                "service_name": "beacon-dbs-dbswebservice"
+            },
+            # SYS API URL
+            "COREPRO_SYS_API": "http://172.16.16.38:8080",  # corepro 系统公共API
+
+            # Flag for debug message
+            "COREPRO_DEBUG": False,
+            "SQL_DEBUG": False,
+            "MQTT_DEBUG": True,
+
+            # Kafka create params
+            "CREATE_KAFKA_URL": "http://beacon-kafka-services-v2:8080/kafkaService/kylinKafkatopic/",
+            "SKIP_KAFKA_TOPIC": False,
+
+            # Product iamge URL
+            "PRODUCT_IMAGE_URL": "http://service-o8bikfta-1256676747.ap-guangzhou.apigateway.myqcloud.com/release/corepro/equipment/product/image/" + \
+                                 "?X-NameSpace-Code=default-code&X-MicroService-Name=beacon-corepro-equipment-new&user_id=%s&product_id=%s",
+            # TIME ZONE
+            "TIME_ZONE": 8,  # +8 Asis/Shanhai
+            # Other params
+            "BATCH_REGISTER_LIMIT": 1000,
+            "BATCH_REGISTER_EXCEL_LIMIT": 2 * 100 * 1000
+        },
+
+        # TCE 环境配置
+        "TCE": {
+            "MYSQL": {
+                "host": "10.124.129.17",
+                "port": 3306,
+                "user": "corepro01",
+                "password": "foxconn168!",
+                "db": "db_corepro_sys"
+            },
+            "REDIS": {
+                "host": "10.124.128.114",
+                "port": 6379,
+                "db": 0,
+                "password": "crs-av9gl0yi:Foxconn123456"
+            },
+            "MONGODB": {
+                "host": "10.124.129.16",
+                "port": 27017,
+                "user": "mongouser",
+                "password": "Foxconn123"
+            },
+            "RABBITMQ": {
+                "host": "10.134.171.28",
+                "port": 5672,
+                "user": "corepro",
+                "password": "corepro168!"
+            },
+            "ACTIVEMQ_HA": {
+                "host": "10.124.128.19",
+                "port": 1883,
+            },
+            "ACTIVEMQ": {
+                "host": "amqbroker.corepro",
+                "port": 1883,
+                "user": "corepro",
+                "password": "corepro168!",
+                "host_A": "amqbroker1.corepro",
+                "port_A": 1883,
+                "host_B": "amqbroker2.corepro",
+                "port_B": 1883,
+                "host_C": "amqbroker3.corepro",
+                "port_C": 1883,
+            },
+            # API Gateway Info
+            "API_GATEWAYS": {
+                "host": "http://service-de8elrpo-1255000335.apigw.fii-foxconn.com/release/",
+                "name_space": "corepro",
+                "service_name": "corepro-equipment"
+            },
+            # Email Service
+            "EMAIL_SERVICE": {
+                "support": False,
+                "host": "smtp.exmail.qq.com",
+                "username": "fiiadmin@fiibeacon.com",
+                "password": "Foxconn888",
+            },
+            # SMS Service
+            "SMS_SERVICE": {
+                "support": False,
+                "host": "smtp.exmail.qq.com",
+                "appid": "1400118837",
+                "appkey": "f3269bea3e18cf97b6bdd43a266956f6",
+                "tempid": 175736,
+                "sign": "深圳富桂精密工業有限公司",
+            },
+            # DBS URL
+            "DBS_URLS": {
+                "host": "http://172.31.32.26:8000/",
+                "gateway_path": "http://service-o8bikfta-1256676747.ap-guangzhou.apigateway.myqcloud.com/test/",
+                "create_table_path": "insert/createTable",
+                "create_project_path": "http://10.134.236.20/corepro/createproject",
+                "appid": "MNXXEZLQOJXV64TPN52A====",
+                "name_space": "default-code",
+                "service_name": "beacon-dbs-dbswebservice"
+            },
+            # SYS API URL
+            "COREPRO_SYS_API": "http://10.124.128.108:8080",  # corepro 系统公共API
+
+            # Flag for debug message
+            "COREPRO_DEBUG" : False,
+            "SQL_DEBUG" : False,
+            "MQTT_DEBUG" : True,
+
+            # Kafka create params
+            "CREATE_KAFKA_URL": "http://corepro-kafka-topic-acl:8080/kafkaService/kylinKafkatopic/",
+            "SKIP_KAFKA_TOPIC": False,
+
+            # Product iamge URL
+            "PRODUCT_IMAGE_URL": "http://service-de8elrpo-1255000335.apigw.fii-foxconn.com/release/corepro/equipment/product/image/" + \
+                                 "?X-NameSpace-Code=corepro&X-MicroService-Name=corepro-equipment&user_id=%s&product_id=%s",
+            # TIME ZONE
+            "TIME_ZONE": 8,  # +8 Asis/Shanhai
+            # Other params
+            "BATCH_REGISTER_LIMIT": 1000,
+            "BATCH_REGISTER_EXCEL_LIMIT": 2 * 100 * 1000
+        },
+    }

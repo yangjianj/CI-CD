@@ -1,0 +1,73 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    qcloud-app: corepro-web
+  name: corepro-web
+  namespace: coreprotest1
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      qcloud-app: corepro-web
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+      labels:
+        qcloud-app: corepro-web
+    spec:
+      containers:
+      - image: ccr.ccs.tencentyun.com/sqacorepro/beacon-corepro-web:v1.5.9201905141131
+        imagePullPolicy: Always
+        name: corepro-web
+        resources:
+          limits:
+            cpu: 1100m
+            memory: 1Gi
+          requests:
+            cpu: 150m
+            memory: 1Gi
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        volumeMounts:
+        - mountPath: /home/docker/code/app/mc_web/settings.py
+          name: settings
+          subPath: settings.py
+        - mountPath: /home/docker/code/app/static/APPJS/restApiconfig.js
+          name: restapiconfig
+          subPath: restApiconfig.js
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: qcloudregistrykey
+      - name: tencenthubkey
+      restartPolicy: Always
+      securityContext: {}
+      serviceAccountName: ""
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: settings.py
+            mode: 511
+            path: settings.py
+          name: corepro-web-ccscf-jtogf4bv-ccscv-7c1o1oe1
+        name: settings
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: restApiconfig.js
+            mode: 511
+            path: restApiconfig.js
+          name: corepro-web-ccscf-jtogf4bv-ccscv-7c1o1oe1
+        name: restapiconfig
+status: {}
+

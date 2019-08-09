@@ -1,0 +1,28 @@
+apiVersion: v1
+data:
+  config.py: "__author__ = 'f4367281'\n\nimport os,platform\nfrom dblib.settings import
+    *\n\nVERSION = \"V1.5.8\"\nif COREPRO_SQA_ENV:\n    # MYSQL\n    main_mysql_host
+    = \"172.31.64.14\"\n    main_mysql_port = 3306\n    main_mysql_user = \"corepro01\"
+    # \"beacon\" #\n    main_mysql_password = \"foxconn168!\" # \"Foxconn88!\" #\"Foxconn88!\"\n
+    \   main_mysql_db = \"db_fii_boss\"\n\n    mongo_url = \"mongodb://mongouser:Foxconn0@172.31.64.10:27017/\"\n\n
+    \   # Redis\n    redis_host = \"172.31.64.4\"\n    redis_port = 6379\n    redis_passowrd
+    = \"Foxconn0\"\n    db = 0\n\n\n    # API密钥ID\n    CLIENT_ID = 'SAAS76GEPJV'\n
+    \   # API密钥的私钥\n    CLIENT_SECRET = '8b54774d389587758c70df4900e69d2c'\n    #corepro
+    地址\n    CorePro_url=\"http://corepro.fiibeacon.com/index/\"\n    COREPRO_INIT_TABLE_URL
+    = \"http://beacon-corepro-system-api:8080/corepro-common/initTenantdb\"\n    #
+    DBS TABLE:\n    GENERATE_PROJECT_URL = \"http://172.18.0.49:30121/corepro/createproject\"\n
+    \   GENERATE_DB_URL = \"http://172.18.0.49:30121/corepro/createdatabase\"\n    appid
+    = \"MNXXEZLQOJXV64TPN52A====\"\n  "
+  settings.py: |-
+    __author__ = '830201'
+
+    # CHOOSE ENV VARIABLES HERE
+
+    COREPRO_DEV_ENV = False
+    COREPRO_SQA_ENV = True
+    COREPRO_PRODUCT_ENV = False
+    COREPRO_TCE_ENV = False
+kind: ConfigMap
+metadata:
+  name: configtest
+  namespace: coreprotest1
