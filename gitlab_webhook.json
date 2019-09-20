@@ -1,0 +1,66 @@
+{
+  "object_kind": "tag_push",
+  "event_name": "tag_push",
+  "before": "0000000000000000000000000000000000000000",
+  "after": "62dcfd1ecb8239e1db39084efcea6b001a9b3251",
+  "ref": "refs/tags/20190910",
+  "checkout_sha": "62dcfd1ecb8239e1db39084efcea6b001a9b3251",
+  "message": "",
+  "user_id": 201,
+  "user_name": "杨剑",
+  "user_username": "F1335883",
+  "user_email": "",
+  "user_avatar": "https://www.gravatar.com/avatar/75f07441cdfc8adb117b056fc6d56531?s=80&d=identicon",
+  "project_id": 1383,
+  "project": {
+    "id": 1383,
+    "name": "devops_test",
+    "description": "",
+    "web_url": "http://10.167.6.154/F1335883/devops_test",
+    "avatar_url": null,
+    "git_ssh_url": "git@10.167.6.154:F1335883/devops_test.git",
+    "git_http_url": "http://10.167.6.154/F1335883/devops_test.git",
+    "namespace": "F1335883",
+    "visibility_level": 0,
+    "path_with_namespace": "F1335883/devops_test",
+    "default_branch": "master",
+    "ci_config_path": null,
+    "homepage": "http://10.167.6.154/F1335883/devops_test",
+    "url": "git@10.167.6.154:F1335883/devops_test.git",
+    "ssh_url": "git@10.167.6.154:F1335883/devops_test.git",
+    "http_url": "http://10.167.6.154/F1335883/devops_test.git"
+  },
+  "commits": [
+    {
+      "id": "62dcfd1ecb8239e1db39084efcea6b001a9b3251",
+      "message": "Add new file",
+      "timestamp": "2019-09-20T01:54:04Z",
+      "url": "http://10.167.6.154/F1335883/devops_test/commit/62dcfd1ecb8239e1db39084efcea6b001a9b3251",
+      "author": {
+        "name": "杨剑",
+        "email": "pied.j.yang@mail.foxconn.com"
+      },
+      "added": [
+        "testhook.txt"
+      ],
+      "modified": [
+
+      ],
+      "removed": [
+
+      ]
+    }
+  ],
+  "total_commits_count": 1,
+  "push_options": {
+  },
+  "repository": {
+    "name": "devops_test",
+    "url": "git@10.167.6.154:F1335883/devops_test.git",
+    "description": "",
+    "homepage": "http://10.167.6.154/F1335883/devops_test",
+    "git_http_url": "http://10.167.6.154/F1335883/devops_test.git",
+    "git_ssh_url": "git@10.167.6.154:F1335883/devops_test.git",
+    "visibility_level": 0
+  }
+}
