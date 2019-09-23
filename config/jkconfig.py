@@ -393,5 +393,8 @@ public_cloud=[
     }
 ]
 
+joblink = "http://10.129.4.189:8080/user/admin/my-views/view/all/job/devops_ate/job/yangjian/"
+username = "admin"
+password = "ate123456!"
 #git@10.167.6.154:corepro-deploy/corepro_b_fs_shadow_handler.git
 #sudo docker login --username=100004603023 ccr.ccs.tencentyun.com
