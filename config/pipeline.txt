@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+    stages {
+        stage('envirnoment clean') {
+            steps{
+                sh """
+                echo   123456748985956926
+                pwd
+                ls
+                rm -rf *
+                ls
+                """
+            }
+        }
+        stage('git clone') {
+            steps{
+                git(branch: "master",
+                    credentialsId: "${git_credentialsid}",
+                    url : "git@${script_path}/${service}.git")
+                sh """
+                git checkout $tag
+                """
+            }
+        }
+        stage('script scan') {
+                   steps{
+                       script{
+                            if(code_scan == 'false'){
+                                sh"""
+                                /data/home_work/sonar-scanner-4.0.0.1744-linux/bin/sonar-scanner -X \
+                                -Dsonar.host.url=http://10.124.130.52 -Dsonar.login=cef7805b0e9acb9214a148ce50813477eedc2fa7 \
+                                -Dsonar.projectKey=amy-python \
+                                -Dsonar.host.url=http://10.124.130.52 \
+                                -Dsonar.sources=. \
+                                -Dsonar.projectBaseDir=/data/home_work/workspace/code_scan/corepro_platform
+                                """
+                            }else{
+                                sh"""
+                                echo  skip script scan
+                                """ 
+                            }
+                       }
+                   }
+
+        }
+        stage('docker build') {
+            steps{
+                script{
+                    if(dockerfile == 'Dockerfile'){
+                        sh"""
+                        echo use project dockerfile
+                        """
+                    }
+                    else{
+                        sh"""
+                        wget ${dockerfile_path}${dockerfile}
+                        """
+                    }
+                }
+                sh"""
+                docker build -t ${image_hub}/${image_project}/${image_name}:${image_tag} -f ${dockerfile} .
+                docker login -u ${hub_user} -p ${hub_password} ${image_hub}
+                docker push ${image_hub}/${image_project}/${image_name}:${image_tag}
+                docker image rm ${image_hub}/${image_project}/${image_name}:${image_tag}
+                """
+            }
+        }
+    }
+    post{
+        always{
+            echo '123456 end'
+                }
+            }
+}
