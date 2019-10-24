@@ -59,7 +59,7 @@ pipeline {
                 }
                 sh"""
                 docker build -t ${image_hub}/${image_project}/${image_name}:${image_tag} -f ${dockerfile} .
-                docker login -u ${hub_user} -p ${hub_password} ${image_hub}
+                docker login -u ${hub_user} -p ${hub_password} ${image_hub} 
                 docker push ${image_hub}/${image_project}/${image_name}:${image_tag}
                 docker image rm ${image_hub}/${image_project}/${image_name}:${image_tag}
                 """
